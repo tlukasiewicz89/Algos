@@ -1,73 +1,117 @@
 class BST {
     constructor() {
         this.root = null;
-        this.insert = this.insert.bind(this);
-        this.find = this.find.bind(this);
     }
+
     insert(value) {
-        let newNode = new Node(value);
-        if (this.root === null) {
+        const newNode = new Node(value);
+        if (!this.root) {
             this.root = newNode;
-            return this;
-        } 
-        let curr = this.root;
+            return;
+        }
+        let currNode = this.root;
         while (true) {
-            if (value === curr.value) return undefined;
-            if (value < curr.value) {
-                if (curr.left === null) {
-                    curr.left = newNode;
-                    return this;
-                } 
-                curr = curr.left;
+            if (currNode.value === value) return;
+            if (value < currNode.value) {
+                if (currNode.left) {
+                    currNode = currNode.left;
+                } else {
+                    currNode.left = newNode;
+                    return;
+                }
             } else {
-                if (curr.right === null) {
-                    curr.right = newNode;
-                    return this;
-                } 
-                curr = curr.right;
+                if (currNode.right) {
+                    currNode = currNode.right;
+                } else {
+                    currNode.right = newNode;
+                }
             }
         }
     }
-    find(value) {
-        if (this.root === null) return undefined;
-        let curr = this.root;
-        while(true) {
-            if (curr.value === value) {
-                return curr;
-            } 
-            if (value < curr.value) {
-                if (curr.left) {
-                    curr = curr.left;
+
+    find (value) {
+        let currNode = this.root;
+        if (!currNode) return undefined;
+        if (currNode.value === value) return currNode;
+        while (true) {
+            if (currNode.value === value) return currNode;
+            if (value < currNode.value) {
+                if (currNode.left) {
+                    currNode = currNode.left
                 } else return undefined;
             } else {
-                if (curr.right) {
-                    curr = curr.right;
+                if (currNode.right) {
+                    currNode = currNode.right;
                 } else return undefined;
             }
         }
+    }
+    bfs () {
+        // Breadth first search
+        // first in first out queue
+        const que = [],
+          results = [];
+        que.push(this.root); 
+        while (que.length) {
+            const popped = que.shift();
+            results.push(popped.value);
+            if (popped.left) que.push(popped.left)
+            if (popped.right) que.push(popped.right)
+
+        }
+        return results;
+    }
+    dfsPreOrder () {
+        const result = [];
+        function traverse (node) {
+            result.push(node.value);
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right); 
+        }
+        traverse(this.root);
+        return result;
     }
 }
+
 
 class Node {
     constructor(value) {
         this.value = value;
-        this.left = null
-        this.right = null
+        this.left = null;
+        this.right = null;
     }
 }
 
-let tree = new BST();
+const tree = new BST();
+console.log(tree)
 tree.insert(10);
-tree.insert(5);
-tree.insert(9);
-tree.insert(7);
-console.log(tree.find(9))
-console.log(tree.insert(10));
+tree.insert(6);
+tree.insert(15);
+tree.insert(3);
+tree.insert(8);
+tree.insert(20);
+console.log(tree)
+console.log(tree.find(6))
+console.log(tree.find(10))
+console.log(tree.bfs())
+console.log(tree.dfsPreOrder())
 
-console.log(tree.root.left);
+//breath first search ... working across the children horizontally
+// look at the root then the siblings horizontally
+//       10
+//    6     15
+// 3    8      20
+// BFS returns [10, 6, 15, 3, 8, 20]
 
-function findClosestValueInBst(tree, target, obj = {nodeVale: Inifinity, distance: Infinity) {
-  console.log(obj);
-}
 
-console.log(findClosestValueInBst(tree, 4))
+// Depth first search - visit nodes vertically
+// traverse down until we hit the end of the tree
+// in order
+// pre order
+// return [10, 6, 3, 8, 15, 20]
+
+// visit the node then left then right
+
+// post order - explore everything first then visit the node
+// the root is last
+// returns [3, 8, 6, 20, 15, 10]
