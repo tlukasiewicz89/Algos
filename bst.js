@@ -71,6 +71,27 @@ class BST {
         traverse(this.root);
         return result;
     }
+    dfsPostOrder () {
+        const result = [];
+        function traverse (node) {
+            if (node.left) traverse(node.left);
+            if (node.right) traverse(node.right);
+            result.push(node.value);
+        }
+        traverse(this.root);
+        return result;
+    }
+    dfsInOrder () {
+        const result = [];
+        function traverse (node) {
+            // dammmm check out this syntax
+            node.left && traverse(node.left);
+            result.push(node.value);
+            node.right && traverse(node.right);
+        }
+        traverse(this.root);
+        return result;
+    }
 }
 
 
@@ -95,6 +116,8 @@ console.log(tree.find(6))
 console.log(tree.find(10))
 console.log(tree.bfs())
 console.log(tree.dfsPreOrder())
+console.log(tree.dfsPostOrder())
+console.log(tree.dfsInOrder())
 
 //breath first search ... working across the children horizontally
 // look at the root then the siblings horizontally
@@ -106,12 +129,34 @@ console.log(tree.dfsPreOrder())
 
 // Depth first search - visit nodes vertically
 // traverse down until we hit the end of the tree
+
 // in order
+// returns [3, 6, 8, 10, 15, 20]
+
 // pre order
 // return [10, 6, 3, 8, 15, 20]
-
 // visit the node then left then right
 
 // post order - explore everything first then visit the node
 // the root is last
 // returns [3, 8, 6, 20, 15, 10]
+
+// when do you use each?
+// BFS vs DFS - have same time complexity
+    // a fully fleshed out tree like 100 height
+    // BFS space complexity will be much worse on a huge tree
+    // DFS would use less space
+
+    // a super long one sided tree
+    // BFS space complexity would be 1
+    // DFS would take more space 
+
+// DFS pre, post, in ...
+    // inOrder - goes from lowest to highest
+    // preOrder - can be used to export a tree so it can be copied or reconsrtucted
+    
+// RECAP
+// trees an non-linear data structures the contain root and child nodes
+// Binary trees have values of any type, but at most two childrend per parent
+// Binary search trees are more specific where each node to the left is less 
+//      and each node to the right is greater    
