@@ -49,14 +49,14 @@ class BST {
     bfs () {
         // Breadth first search
         // first in first out queue
-        const que = [],
+        const queue = [],
           results = [];
-        que.push(this.root); 
-        while (que.length) {
-            const popped = que.shift();
+        queue.push(this.root); 
+        while (queue.length) {
+            const popped = queue.shift();
             results.push(popped.value);
-            if (popped.left) que.push(popped.left)
-            if (popped.right) que.push(popped.right)
+            if (popped.left) queue.push(popped.left)
+            if (popped.right) queue.push(popped.right)
 
         }
         return results;
@@ -160,3 +160,31 @@ console.log(tree.dfsInOrder())
 // Binary trees have values of any type, but at most two childrend per parent
 // Binary search trees are more specific where each node to the left is less 
 //      and each node to the right is greater    
+
+
+function findClosestValueInBst(tree, target) {
+    let closestValue = null;
+    let distance = Infinity;
+    let current = tree.root;
+    while (current) {
+      if (Math.abs(target - current.value) < distance) {
+        distance = Math.abs(target - current.value);
+        closestValue = current.value;
+      }
+      if (distance === 0) break;
+      if (target < current.value) {
+          current = current.left
+      } else {
+          current = current.right;
+      }
+    }
+    return closestValue;
+}
+
+console.log(findClosestValueInBst(tree, 13))
+
+
+
+
+
+
