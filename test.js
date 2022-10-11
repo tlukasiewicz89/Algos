@@ -132,8 +132,6 @@ const addDataToId=(arr, id, newChild) => {
       // console.log(i)
       for (const key in i) {
         newKey = Math.max(key, newKey)
-        console.log(newKey)
-        console.log(key)
         if (key === id) {
           foundNode = i[key];
         }
