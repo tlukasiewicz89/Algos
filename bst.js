@@ -111,6 +111,9 @@ tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(20);
+//       10
+//    6     15
+// 3    8      20
 console.log(tree)
 console.log(tree.find(6))
 console.log(tree.find(10))
@@ -184,7 +187,7 @@ function findClosestValueInBst(tree, target) {
 console.log(findClosestValueInBst(tree, 13))
 
 
-
+//another questions
 
 
 
