@@ -1,0 +1,23 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bst.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlukasiewicz89/DSA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlukasiewicz89/DSA/issues"
+  },
+  "homepage": "https://github.com/tlukasiewicz89/DSA#readme",
+  "devDependencies": {
+    "jest": "^29.2.2"
+  }
+}
